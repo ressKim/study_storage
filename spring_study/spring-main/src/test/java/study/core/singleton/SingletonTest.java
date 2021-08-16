@@ -3,6 +3,7 @@ package study.core.singleton;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import study.core.AppConfig;
 import study.core.member.MemberService;
 
@@ -51,6 +52,28 @@ public class SingletonTest {
          * isEqualAs equals
          */
         assertThat(singletonService1).isSameAs(singletonService2);
+    }
+
+    @Test
+    @DisplayName("스프링 컨테이너와 싱글톤")
+    void springContainer(){
+        /**
+         * sping 에서는 등록한거를 자동으로 싱글톤 컨테이너 방식으로 적용하기 때문에 Bean 등록 후에는 spring 이
+         * 내부적으로 같은 객체를 재 사용한다. 이렇게 해서 SOLID 방식을 최대한 지킨다.
+         */
+
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        MemberService memberService1 = ac.getBean("memberService", MemberService.class);
+        MemberService memberService2 = ac.getBean("memberService", MemberService.class);
+
+        //참조값이 다른 것을 확인
+        System.out.println("memberService1 = " + memberService1);
+        System.out.println("memberService2 = " + memberService2);
+
+        //memberService1 != memberService2
+        assertThat(memberService1).isSameAs(memberService2);
+
     }
 }
 
