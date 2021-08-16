@@ -33,4 +33,15 @@ public class ConfigurationSingletonTest {
         assertThat(memberRepository1).isSameAs(memberRepository2);
 
     }
+
+    /**
+     * @Configuration 이 있으면 내부적으로 바이트코드를 사용하여 Singleton 보장을 해 준다.
+     */
+    @Test
+    void configurationDeep(){
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig bean = ac.getBean(AppConfig.class);
+
+        System.out.println("bean = " + bean.getClass());
+    }
 }
