@@ -17,7 +17,7 @@ public class ComponentFilterAppConfigTest {
         BeanA beanA = ac.getBean("beanA", BeanA.class);
         assertThat(beanA).isNotNull();
 
-        //filter 에서 걸렀기 때문에 Exception 이 터져야 된다ㅓ.
+        //filter 에서 걸렀기 때문에 Exception 이 터져야 된다.
         assertThrows(
                 NoSuchBeanDefinitionException.class,
                 () -> ac.getBean("beanB", BeanB.class)
