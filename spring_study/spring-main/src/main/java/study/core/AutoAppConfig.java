@@ -40,7 +40,7 @@ public class AutoAppConfig {
    * 여려명이서 개발하기때문이기도 하고 어떤 경우가 있을 지 모르기때문에 이렇게 애매한 추상화 같은 것들은
    * 피하고 명확하게 구현하도록 하자, 당장 보기에는 깔끔해 보일 지 모르지만 나중에 버그터지거나 딴 사람이 볼 때 매우 힘들 수 있다.
    */
-  @Bean(name = "memoryMemberRepository")
+//  @Bean(name = "memoryMemberRepository")
   MemberRepository memberRepository() {
     return new MemoryMemberRepository();
   }
