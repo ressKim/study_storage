@@ -41,8 +41,8 @@ public class AutoAppConfig {
    * 피하고 명확하게 구현하도록 하자, 당장 보기에는 깔끔해 보일 지 모르지만 나중에 버그터지거나 딴 사람이 볼 때 매우 힘들 수 있다.
    */
 //  @Bean(name = "memoryMemberRepository")
-  MemberRepository memberRepository() {
-    return new MemoryMemberRepository();
-  }
+//  MemberRepository memberRepository() {
+//    return new MemoryMemberRepository();
+//  }
 
 }
