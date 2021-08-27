@@ -2,6 +2,7 @@ package study.core.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import study.core.discount.DiscountPolicy;
 import study.core.member.Member;
@@ -47,11 +48,32 @@ import study.core.member.MemberRepository;
      */
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
   private final MemberRepository memberRepository;
   private final DiscountPolicy discountPolicy;
+
+  /**
+   * @param discountPolicy
+   * @Autowired - 만약 component 가 중복되어 있다면 Autowired 는 그 다음행동으로 타입이 여러개 이면 필드명, 파라미터명을 확인해서 같은게있으면
+   * 우선으로 찾아준다.
+   * @Qualifier("XX") - 각각에 Qualifies 를 지정해서 사용할 것을 지정해주어도 된다. 만약 XX 를 못찾으면 XX 이름의 스프링 빈을 추가로 찾는다.
+   * -> Qualifier 는 Qualifier 를 찾는 용도로만 명확하게 사용하는게 좋다.
+   * @Primary - 이 어노테이션이 붙은 빈이 먼저 사용되게 한다.
+   * -> ex) main DB , sub DB 가 있다고 치면 main DB 에 보통 @Primary 로 쓰고 보조 DB 를 사용할때 @Qualifier 로 이름을 붙이는 등을 할 수 있다.
+   *
+   * 느낌은 @Primary 는 기본값으로 동작하는것이고 , @Qualifier 는 상세하게 지정하는것이다.
+   * 같이 사용한다면 더 상세한 @Qualifier 가 우선권을 가진다.
+   */
+  @Autowired
+  public OrderServiceImpl(MemberRepository memberRepository,
+//      @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+//    DiscountPolicy rateDiscountPolicy) {
+      DiscountPolicy discountPolicy) {
+      this.memberRepository = memberRepository;
+    this.discountPolicy = discountPolicy;
+  }
 
   @Override
   public Order createOrder(Long memberId, String itemName, int itemPrice) {
