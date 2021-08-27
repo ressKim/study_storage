@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import study.core.annotation.MainDiscountPolicy;
 import study.core.discount.DiscountPolicy;
 import study.core.member.Member;
 import study.core.member.MemberRepository;
@@ -68,9 +69,9 @@ public class OrderServiceImpl implements OrderService {
    */
   @Autowired
   public OrderServiceImpl(MemberRepository memberRepository,
-//      @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+      @MainDiscountPolicy DiscountPolicy discountPolicy) {
 //    DiscountPolicy rateDiscountPolicy) {
-      DiscountPolicy discountPolicy) {
+//      DiscountPolicy discountPolicy) {
       this.memberRepository = memberRepository;
     this.discountPolicy = discountPolicy;
   }
