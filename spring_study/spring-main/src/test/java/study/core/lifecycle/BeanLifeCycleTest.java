@@ -54,9 +54,10 @@ class BeanLifeCycleTest {
      * 이름 그대로 종료 메서드를 추론해서 호출 해 준다.
      * 따라서 직접 스프링 빈으로 등록하면 종료 메서드는 적어주지 않아도 되는경우가 발생한다.
      * 추론 기능을 사용하기 싫다면 'destroyMethod=""' 처럼 빈 공백을 사용하면 된다.
-     *ㅏ
+     *
      */
-    @Bean(initMethod = "init", destroyMethod = "close")
+//    @Bean(initMethod = "init", destroyMethod = "close")
+    @Bean
     public NetworkClient networkClient(){
       NetworkClient networkClient = new NetworkClient();
       networkClient.setUrl("http://hello-spring.dd");

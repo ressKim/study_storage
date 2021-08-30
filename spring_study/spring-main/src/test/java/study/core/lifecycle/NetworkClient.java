@@ -1,5 +1,7 @@
 package study.core.lifecycle;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -35,12 +37,17 @@ public class NetworkClient {
     System.out.println("disconnect = " + url);
   }
 
+  //@PostConstruct 는 javax 에서 지원하는거라서 spring 에 의존하는게 아니고 java 에서 지원하는 기능이다.
+  //vㅐ키지가 javax.annotation.PostConstruct - JSR-250 이라는 자바 표준이다.
+  // 외부 라이브러리 등에 적용해야 되는 유연함이 부족하지만 그럴 때를 제외하고는 이걸 쓰는게 좋다.
+  @PostConstruct
   public void init(){
     System.out.println("NetworkClient.init");
     connect();
     call("초기화 연결 메시지");
   }
 
+  @PreDestroy
   public void close(){
     System.out.println("NetworkClient.close");
     disconnect();
