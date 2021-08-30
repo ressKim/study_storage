@@ -37,7 +37,26 @@ class BeanLifeCycleTest {
 
   @Configuration
   static class LifeCycleConfig{
-    @Bean
+
+    /**
+     * 설정 정보 사용의 특징
+     * 메서드 이름을 자유롭게 줄 수 있다.
+     * 스프링 빈이 스프링 코드에 의존하지 않는다.
+     * 코드가 아니라 설정 정보를 사용하기 때문에 코드를 고칠 수 없는 외부 라이브러리에도 초기화, 종료 메서드를 적용할 수 있다.
+     */
+
+    /**
+     * 추가로 종료메서드 추론 이라는게 있다.
+     * @Bean 의 destroyMethod 에는 특별한 기능이 있다.
+     * 라이브러리는 대부분 'close', 'shutdown' 이라는 종료 메서드를 사용을 한다.
+     * @Bean 의 'destoryMethod' 는 기본값이 '(inferred)'(추론) 으로 등록되어 있다.
+     * 이 추론 기능은 'close', 'shutdown'라는 이름의 메서드를 자동으로 호출 해 준다.
+     * 이름 그대로 종료 메서드를 추론해서 호출 해 준다.
+     * 따라서 직접 스프링 빈으로 등록하면 종료 메서드는 적어주지 않아도 되는경우가 발생한다.
+     * 추론 기능을 사용하기 싫다면 'destroyMethod=""' 처럼 빈 공백을 사용하면 된다.
+     *ㅏ
+     */
+    @Bean(initMethod = "init", destroyMethod = "close")
     public NetworkClient networkClient(){
       NetworkClient networkClient = new NetworkClient();
       networkClient.setUrl("http://hello-spring.dd");
