@@ -1,12 +1,14 @@
 package study.core.lifecycle;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import study.core.annotation.MainDiscountPolicy;
 
-public class BeanLifeCycleTest {
+class BeanLifeCycleTest {
 
   /**
    * 스프링 빈의 이벤트 라이프 사이클 - (싱글톤에 관해서)
@@ -24,6 +26,7 @@ public class BeanLifeCycleTest {
    */
 
   @Test
+  @DisplayName("bean life cycle 확인용")
   void lifeCycleTest(){
     ConfigurableApplicationContext ac = new AnnotationConfigApplicationContext(
         LifeCycleConfig.class);
