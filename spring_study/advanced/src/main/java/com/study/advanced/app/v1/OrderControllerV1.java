@@ -13,6 +13,10 @@ public class OrderControllerV1 {
   private final OrderServiceV1 orderService;
   private final HelloTraceV1 trace;
 
+  /*
+  기존 이렇게 하면 controller, service, repository 가 각각 다른것을 볼 수 있다.
+  그리고
+   */
   @GetMapping("/v1/request")
   public String request(String itemId) {
     TraceStatus status = null;
