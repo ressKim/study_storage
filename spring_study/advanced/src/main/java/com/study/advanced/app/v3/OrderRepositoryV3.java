@@ -1,7 +1,6 @@
 package com.study.advanced.app.v3;
 
 import com.study.advanced.trace.TraceStatus;
-import com.study.advanced.trace.hellotrace.HelloTraceV2;
 import com.study.advanced.trace.logtrace.LogTrace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -20,7 +19,6 @@ public class OrderRepositoryV3 {
       if (itemId.equals("ex")) {
         throw new IllegalStateException("예외 발생");
       }
-
       sleep(1000);
 
       trace.end(status);
@@ -32,7 +30,7 @@ public class OrderRepositoryV3 {
 
   private void sleep(int millis) {
     try {
-      Thread.sleep(1000);
+      Thread.sleep(millis);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
