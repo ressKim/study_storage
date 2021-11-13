@@ -48,4 +48,27 @@ public class TemplateMethodTest {
     template2.execute();
   }
 
+  //익명 내부 클래스를 이용해서 새로운 클래스를 만들지 않고 이렇게 사용 가능
+  @Test
+  void templateMethodV2() {
+
+    AbstractTemplate template1 = new AbstractTemplate() {
+      @Override
+      protected void call() {
+        log.info("비스지스 로직1 실행");
+      }
+    };
+    log.info("클래스이름 1 = {}", template1.getClass());
+    template1.execute();
+
+    AbstractTemplate template2 = new AbstractTemplate() {
+      @Override
+      protected void call() {
+        log.info("비스지스 로직2 실행");
+      }
+    };
+    log.info("클래스이름 2 = {}", template2.getClass());
+    template2.execute();
+  }
+
 }
