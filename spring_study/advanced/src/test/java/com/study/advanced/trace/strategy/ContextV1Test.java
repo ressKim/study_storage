@@ -1,6 +1,7 @@
 package com.study.advanced.trace.strategy;
 
 import com.study.advanced.trace.strategy.code.strategy.ContextV1;
+import com.study.advanced.trace.strategy.code.strategy.Strategy;
 import com.study.advanced.trace.strategy.code.strategy.StrategyLogic1;
 import com.study.advanced.trace.strategy.code.strategy.StrategyLogic2;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ public class ContextV1Test {
    * 전략 패턴
    */
   @Test
-  void strategyV1(){
+  void strategyV1() {
     StrategyLogic1 strategyLogic1 = new StrategyLogic1();
     ContextV1 context1 = new ContextV1(strategyLogic1);
     context1.execute();
@@ -49,4 +50,60 @@ public class ContextV1Test {
     context2.execute();
   }
 
+  @Test
+  void strategyV2() {
+
+    Strategy strategyLogic1 = new Strategy() {
+      @Override
+      public void call() {
+        log.info("ㅂ비즈니스 로직 1 실행 ");
+      }
+    };
+
+    ContextV1 contextV1 = new ContextV1(strategyLogic1);
+    contextV1.execute();
+    log.info("strategyLogic1={}", strategyLogic1.getClass());
+
+    Strategy strategyLogic2 = new Strategy() {
+      @Override
+      public void call() {
+        log.info("비즈니스 로직 2 실행 ");
+      }
+    };
+
+    ContextV1 contextV2 = new ContextV1(strategyLogic2);
+    contextV2.execute();
+    log.info("strategyLogic2={}", strategyLogic2.getClass());
+  }
+
+  @Test
+  void strategyV3() {
+
+    ContextV1 contextV1 = new ContextV1(new Strategy() {
+      @Override
+      public void call() {
+        log.info("ㅂ비즈니스 로직 1 실행 ");
+      }
+    });
+    contextV1.execute();
+
+    ContextV1 contextV2 = new ContextV1(new Strategy() {
+      @Override
+      public void call() {
+        log.info("비즈니스 로직 2 실행 ");
+      }
+    });
+    contextV2.execute();
+  }
+
+  //인터페이스 사용할 때 인터페이스의 메소드가 하나만 있을 떄 이렇게 사용이 가능하다.
+  @Test
+  void strategyV4() {
+
+    ContextV1 contextV1 = new ContextV1(() -> log.info("비즈니스 로직 1 실행 "));
+    contextV1.execute();
+
+    ContextV1 contextV2 = new ContextV1(() -> log.info("비즈니스 로직 2 실행 "));
+    contextV2.execute();
+  }
 }
