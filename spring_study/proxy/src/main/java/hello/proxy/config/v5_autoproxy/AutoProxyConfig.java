@@ -6,6 +6,7 @@ import hello.proxy.config.v3_proxyfactory.advice.LogTraceAdvice;
 import hello.proxy.trace.logtrace.LogTrace;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.Advisor;
+import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.NameMatchMethodPointcut;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +17,33 @@ import org.springframework.context.annotation.Import;
 @Import({AppV1Config.class, AppV2Config.class})
 public class AutoProxyConfig {
 
-  @Bean
+  //이렇게 하면 단순 글자 매치기때문에 다른 request... 들어간 다른것들도 다 찍히게 된다ㅣ.
+//  @Bean
   public Advisor advisor1(LogTrace logTrace) {
     //pointcut
     NameMatchMethodPointcut pointcut = new NameMatchMethodPointcut();
     pointcut.setMappedNames("request*", "order*", "save*");
+    //advice
+    LogTraceAdvice advice = new LogTraceAdvice(logTrace);
+    return new DefaultPointcutAdvisor(pointcut, advice);
+  }
+
+  //이렇게 하면 package 단위라서 no-log 도 찍히게 된다
+//  @Bean
+  public Advisor advisor2(LogTrace logTrace) {
+    //pointcut
+    AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+    pointcut.setExpression("execution(* hello.proxy.app..*(..))");
+    //advice
+    LogTraceAdvice advice = new LogTraceAdvice(logTrace);
+    return new DefaultPointcutAdvisor(pointcut, advice);
+  }
+
+  @Bean
+  public Advisor advisor3(LogTrace logTrace) {
+    //pointcut
+    AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+    pointcut.setExpression("execution(* hello.proxy.app..*(..)) && !execution(* hello.proxy.app..noLog(..))");
     //advice
     LogTraceAdvice advice = new LogTraceAdvice(logTrace);
     return new DefaultPointcutAdvisor(pointcut, advice);
