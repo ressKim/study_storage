@@ -10,11 +10,9 @@ import com.study.jdbc.domain.Member;
 import com.zaxxer.hikari.HikariDataSource;
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
-import jdk.jfr.Threshold;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Slf4j
 class MemberRepositoryV1Test {
