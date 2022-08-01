@@ -1,23 +1,35 @@
 package com.study.jdbc.exception.basic;
 
 import java.sql.SQLException;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+@Slf4j
 public class UnCheckedAppTest {
 
   @Test
   void checked() {
     Controller controller = new Controller();
-    Assertions.assertThatThrownBy(() -> controller.logic())
+    Assertions.assertThatThrownBy(() -> controller.request())
         .isInstanceOf(Exception.class);
+  }
+
+  @Test
+  void printEx(){
+    Controller controller = new Controller();
+    try {
+      controller.request();
+    } catch (Exception e) {
+      log.info("ex", e);
+    }
   }
 
   static class Controller {
 
     Service service = new Service();
 
-    public void logic() {
+    public void request() {
       service.logic();
     }
   }
@@ -69,6 +81,7 @@ public class UnCheckedAppTest {
     public RuntimeSqlException(String message) {
       super(message);
     }
+
 
     public RuntimeSqlException(Throwable cause) {
       super(cause);
