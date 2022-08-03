@@ -16,7 +16,7 @@ import org.springframework.jdbc.support.JdbcUtils;
  * 트랜잭션 - 트랜잭션 매니저 DataSourceUtils.getConnection() DataSourceUtils.releaseConnection()
  */
 @Slf4j
-public class MemberRepositoryV3 {
+public class MemberRepositoryV3 implements MemberRepositoryEx {
 
   private final DataSource dataSource;
 
