@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,8 +25,8 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
   private final JdbcTemplate template;
 
-  public JdbcTemplateItemRepositoryV1(JdbcTemplate template) {
-    this.template = template;
+  public JdbcTemplateItemRepositoryV1(DataSource dataSource) {
+    this.template = new JdbcTemplate(dataSource);
   }
 
   @Override
