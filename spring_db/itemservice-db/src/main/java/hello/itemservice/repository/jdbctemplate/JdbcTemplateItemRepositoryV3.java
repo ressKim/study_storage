@@ -24,7 +24,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * SimpleJdbcInsert
-*/
+ */
 @Slf4j
 public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
 
@@ -60,7 +60,7 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
         .addValue("id", itemId);
 
     template.update(sql, param);
- }
+  }
 
   @Override
   public Optional<Item> findById(Long id) {
@@ -88,18 +88,16 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
     if (StringUtils.hasText(itemName) || maxPrice != null) {
       sql += " where";
     }
-
     boolean andFlag = false;
     if (StringUtils.hasText(itemName)) {
       sql += " item_name like concat('%',:itemName,'%')";
       andFlag = true;
     }
-
     if (maxPrice != null) {
       if (andFlag) {
         sql += " and";
       }
-      sql += " price <= :itemName";
+      sql += " price <= :maxPrice";
     }
 
     log.info("sql = {}", sql);
