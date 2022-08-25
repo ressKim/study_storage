@@ -8,6 +8,9 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+//테스트가 에러가 나서 버전을 강제해 줬다. 이 같은 경우 검색해서 찾아보면 이런 문법을 쉽게 찾을 수 있다.
+ext ["hibernate.version"] = "5.6.5.Final"
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
